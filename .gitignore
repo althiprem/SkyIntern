@@ -1,4 +1,11 @@
+<<<<<<< HEAD
 
 .env
 README.MD
 node_modules
+=======
+
+.env
+README.MD
+node_modules
+>>>>>>> 3f1769fa4a559e23189bb7197d9dff51380dae01
