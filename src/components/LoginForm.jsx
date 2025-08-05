@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase";
 import { toast } from "react-hot-toast";
-import "./AuthForms.css"; 
-import Dashboard from "../pages/Dashboard";
+import { useNavigate } from "react-router-dom"; // ✅ ADD THIS
+import "./AuthForms.css";
+import { auth } from "../firebase"; // Ensure this path is correct
 
-const LoginForm = ({ onClose }) => {
+const LoginForm = ({ onClose, onLogin }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+    const navigate = useNavigate(); 
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -19,8 +20,10 @@ const LoginForm = ({ onClose }) => {
     signInWithEmailAndPassword(auth, email, password)
       .then(() => {
         toast.success("Logged in successfully!");
-        if (onClose) onClose();
-      })
+        navigate("/dashboard");
+         if (onClose) onClose();
+})
+
       .catch((error) => {
         toast.error("Login failed: " + error.message);
       });
