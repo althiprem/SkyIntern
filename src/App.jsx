@@ -1,41 +1,52 @@
-import React, { useEffect} from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+// src/App.jsx
+
+import React, { useEffect } from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Home from "./pages/Home";
-import "aos/dist/aos.css";
-import AOS from "aos";
 import Dashboard from "./pages/Dashboard";
-import { useState } from "react";
+import Profile from "./pages/Profile";
 import PrivateRoute from "./components/PrivateRoute";
+import AOS from "aos";
+import "aos/dist/aos.css";
+import Payment from "./pages/Payment";
 
 
 function App() {
   useEffect(() => {
-    AOS.init({
-      duration: 800,
-      once: true,
-    });
+    AOS.init({ duration: 800, once: true });
   }, []);
 
-
-  return  (
-    <Router>
+  return (
+    
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+
         <Route
-          path="/dashboard"
+          path="/profile"
           element={
-          <PrivateRoute>
-            <Dashboard />
-          </PrivateRoute>
+            <PrivateRoute>
+              <Profile />
+            </PrivateRoute>
           }
-        />
+        >
+          
+          
+          <Route path="dashboard" element={<Dashboard />} />
+        </Route>
+
+        <Route
+          path="/payment"
+          element={
+              <Payment />}/>
+
+        <Route path="/payment" element={<Navigate to ="/Payment" />} />
+          
+        
+
+        <Route path="*" element={<Navigate to="/" />} />
       </Routes>
-    </Router>
+    
   );
 }
-
-
-
 
 export default App;

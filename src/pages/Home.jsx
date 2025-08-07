@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import NavbarHome from "../components/NavbarHome";
 import CourseCard from "../components/CourseCard";
@@ -12,23 +13,32 @@ import AuthTabs from "../components/AuthTabs";
 
 
 const Home = () => {
+  const navigate = useNavigate();
   const [showAuth, setShowAuth] = useState(false);
 
   const openAuth = () => setShowAuth(true);
   const closeAuth = () => setShowAuth(false);
 
+const handleLogin = () => {
+  setShowAuth(true); // open login modal first
+};
+
+
   return (
     <>
       {/* 🔓 Auth Modal */}
       <AuthModal visible={showAuth} onClose={closeAuth}>
-        <AuthTabs onClose={closeAuth} />
-      </AuthModal>
+  <AuthTabs onClose={closeAuth} onLoginSuccess={() => navigate("/profile")} />
+</AuthModal>
+
 
       {/* 📌 Navbar */}
-      <NavbarHome onOpenAuth={openAuth} />
+      <NavbarHome onOpenAuth={handleLogin} />
 
       {/* 🚀 Hero Section */}
-      <HeroSection onOpenAuth={openAuth} />
+      <HeroSection onOpenAuth={handleLogin} />
+      
+
 
       {/* 💡 Features */}
       <FeaturesSection />
@@ -41,6 +51,7 @@ const Home = () => {
         <h2 className="text-center mb-5" data-aos="fade-down">
           Our Courses
         </h2>
+        
         <div className="row zoom-in">
           <CourseCard
             title="Python Starter Pack"
@@ -69,15 +80,23 @@ const Home = () => {
               { label: "Career Focused", className: "bg-secondary" },
             ]}
           />
+
+               <div>
+      {/* Your current home layout and design untouched */}
+      <button onClick={handleLogin}>Get Started</button>
+    </div>
+
         </div>
       </section>
 
       {/* 📢 CTA Banner */}
-      <CTABanner onOpenAuth={openAuth} />
+      <CTABanner onOpenAuth={handleLogin} />
 
       {/* 🧹 Footer */}
       <Footer />
     </>
+
+ 
   );
 };
 

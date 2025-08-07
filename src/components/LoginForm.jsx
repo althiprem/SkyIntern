@@ -19,11 +19,12 @@ const LoginForm = ({ onClose, onLogin }) => {
     }
     signInWithEmailAndPassword(auth, email, password)
       .then(() => {
-        toast.success("Logged in successfully!");
-        navigate("/dashboard");
-         if (onClose) onClose();
+  toast.success("Logged in successfully!");
+  navigate("/profile");
+  localStorage.setItem("isAuthenticated", "true"); // ✅ Set auth flag
+  if (onLogin) onLogin(); // ✅ Tell parent to navigate to /profile
+  if (onClose) onClose(); // ✅ Close modal
 })
-
       .catch((error) => {
         toast.error("Login failed: " + error.message);
       });

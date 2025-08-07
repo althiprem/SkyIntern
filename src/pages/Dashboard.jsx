@@ -1,5 +1,6 @@
 import React from "react";
-import "./Dashboard.css"; 
+import "../Styles/Dashboard.css";
+ 
 
 const Dashboard = () => {
   const features = [

@@ -1,4 +1,5 @@
 import React from "react";
+import Course from "../pages/Courses";
 
 const Footer = () => {
   return (
@@ -14,6 +15,7 @@ const Footer = () => {
           </a>
           <a href="#courses" className="text-white me-3 text-decoration-none">
             Courses
+            <Course />
           </a>
           <a href="#contact" className="text-white text-decoration-none">
             Contact
