@@ -1,4 +1,3 @@
-// src/pages/Profile.jsx
 
 import React from "react";
 import { Outlet } from "react-router-dom";
@@ -25,8 +24,8 @@ const handleLogout = () => {
 
   const handlePayment = () => {
     const options = {
-      key: "rzp_test_yourKeyHere", // 🔁 Replace with your Razorpay test key
-      amount: 49900, // ₹499 in paisa
+      key: "rzp_test_yourKeyHere", 
+      amount: 499, 
       currency: "INR",
       name: "Skyintern-1",
       description: "Unlock Full Access",
