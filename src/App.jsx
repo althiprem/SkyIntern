@@ -9,6 +9,7 @@ import PrivateRoute from "./components/PrivateRoute";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import Payment from "./pages/Payment";
+import RegisterForm from "./components/RegisterForm";
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
     
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/register" element= {<RegisterForm />} />"
 
         <Route
           path="/profile"
