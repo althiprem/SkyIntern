@@ -1,8 +1,6 @@
 import React, { useState } from "react";
-import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
-import { auth } from "../firebase";
 import { toast } from "react-hot-toast";
-import "./AuthForms.css"; // Import shared styles
+import "./AuthForms.css"; // Keep your existing styles
 
 const RegisterForm = ({ onClose }) => {
   const [email, setEmail] = useState("");
@@ -12,6 +10,7 @@ const RegisterForm = ({ onClose }) => {
 
   const handleRegister = async (e) => {
     e.preventDefault();
+
     if (!email || !password || !confirm) {
       toast.error("Please fill in all fields");
       return;
@@ -22,18 +21,32 @@ const RegisterForm = ({ onClose }) => {
     }
 
     try {
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      await sendEmailVerification(userCredential.user);
-      toast.success("Account created! Please check your email to verify your account.");
-      if (onClose) onClose();
+      const res = await fetch("http://localhost/api/register.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await res.json();
+
+      if (data.success) {
+        toast.success("Account created successfully!");
+        setEmail("");
+        setPassword("");
+        setConfirm("");
+        if (onClose) onClose();
+      } else {
+        toast.error("Registration failed: " + data.message);
+      }
     } catch (error) {
-      toast.error("Registration failed: " + error.message);
+      toast.error("Error: " + error.message);
     }
   };
 
   return (
     <form onSubmit={handleRegister} className="auth-form register-form">
       <h3 className="auth-form-heading">Create an Account</h3>
+
       <input
         type="email"
         placeholder="Email"
@@ -41,6 +54,7 @@ const RegisterForm = ({ onClose }) => {
         className="auth-form-input"
         onChange={(e) => setEmail(e.target.value)}
       />
+
       <div className="auth-password-wrapper">
         <input
           type={showPassword ? "text" : "password"}
@@ -57,6 +71,7 @@ const RegisterForm = ({ onClose }) => {
           {showPassword ? "🙈" : "👁️"}
         </button>
       </div>
+
       <input
         type="password"
         placeholder="Confirm Password"
@@ -64,6 +79,7 @@ const RegisterForm = ({ onClose }) => {
         className="auth-form-input"
         onChange={(e) => setConfirm(e.target.value)}
       />
+
       <button type="submit" className="auth-form-button">
         Register
       </button>
