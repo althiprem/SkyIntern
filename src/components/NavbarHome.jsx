@@ -8,7 +8,7 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
  *
  * @param {object} props - The props for the component.
  * @param {Function} props.onOpenAuth - A callback function to be executed when the "Get Started" button is clicked, typically to open an authentication modal.
- * @returns {JSX.Element} The rendered navigation bar component.
+ * @returns {jsx.Element} The rendered navigation bar component.
  */
 const NavbarHome = ({ onOpenAuth }) => {
   return (

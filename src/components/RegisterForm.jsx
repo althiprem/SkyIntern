@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { toast } from "react-hot-toast";
-import "./AuthForms.css"; // Keep your existing styles
+import "./AuthForms.css";
 
 const RegisterForm = ({ onClose }) => {
   const [email, setEmail] = useState("");
@@ -20,27 +20,27 @@ const RegisterForm = ({ onClose }) => {
       return;
     }
 
-    try {
-      const res = await fetch("http://localhost/api/register.php", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      });
+    // try {
+    //   const res = await fetch("http://localhost/skyintern/db.php", {
+    //     method: "POST",
+    //     headers: { "Content-Type": "application/json" },
+    //     body: JSON.stringify({ email, password }),
+    //   });
 
-      const data = await res.json();
+    //   const data = await res.json();
 
-      if (data.success) {
-        toast.success("Account created successfully!");
-        setEmail("");
-        setPassword("");
-        setConfirm("");
-        if (onClose) onClose();
-      } else {
-        toast.error("Registration failed: " + data.message);
-      }
-    } catch (error) {
-      toast.error("Error: " + error.message);
-    }
+  //     if (data.success) {
+  //       toast.success("Account created successfully!");
+  //       setEmail("");
+  //       setPassword("");
+  //       setConfirm("");
+  //       if (onClose) onClose();
+  //     } else {
+  //       toast.error("Registration failed: " + data.message);
+  //     }
+  //   } catch (error) {
+  //     toast.error("Error: " + error.message);
+  //   }
   };
 
   return (
@@ -52,6 +52,7 @@ const RegisterForm = ({ onClose }) => {
         placeholder="Email"
         value={email}
         className="auth-form-input"
+        name="email"
         onChange={(e) => setEmail(e.target.value)}
       />
 
@@ -61,6 +62,7 @@ const RegisterForm = ({ onClose }) => {
           placeholder="Password"
           value={password}
           className="auth-form-input"
+          name="pass"
           onChange={(e) => setPassword(e.target.value)}
         />
         <button
@@ -77,10 +79,11 @@ const RegisterForm = ({ onClose }) => {
         placeholder="Confirm Password"
         value={confirm}
         className="auth-form-input"
+        name="confirmpass"
         onChange={(e) => setConfirm(e.target.value)}
       />
 
-      <button type="submit" className="auth-form-button">
+      <button type="submit" className="auth-form-button" name="register">
         Register
       </button>
     </form>
